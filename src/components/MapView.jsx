@@ -27,18 +27,26 @@ export default function MapView() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
         />
-        {disasters.map(d => d.location && (
-          <Marker
-            key={d.id}
-            position={[d.location.coordinates[1], d.location.coordinates[0]]}
-            icon={markerIcon}
-          >
-            <Popup>
-              <strong>{d.title}</strong><br />
-              {d.location_name}
-            </Popup>
-          </Marker>
-        ))}
+        {disasters
+  .filter(
+    d =>
+      d.location &&
+      Array.isArray(d.location.coordinates) &&
+      d.location.coordinates.length >= 2
+  )
+  .map(d => (
+    <Marker
+      key={d.id}
+      position={[d.location.coordinates[1], d.location.coordinates[0]]}
+      icon={markerIcon}
+    >
+      <Popup>
+        <strong>{d.title}</strong><br />
+        {d.location_name}
+      </Popup>
+    </Marker>
+  ))}
+
       </MapContainer>
     </Paper>
   );
