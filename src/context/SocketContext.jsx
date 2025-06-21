@@ -1,8 +1,11 @@
-import React, { createContext, useContext, useEffect, useRef } from "react";
+// src/context/SocketContext.jsx
+import React, { createContext, useContext, useRef, useEffect } from "react";
 import { io } from "socket.io-client";
 
-const SocketContext = createContext();
+// Create the context and export it
+export const SocketContext = createContext(null);
 
+// Provider component
 export function SocketProvider({ children }) {
   const socket = useRef();
 
@@ -18,6 +21,7 @@ export function SocketProvider({ children }) {
   );
 }
 
+// Optional: custom hook for easier usage
 export function useSocket() {
   return useContext(SocketContext);
 }
